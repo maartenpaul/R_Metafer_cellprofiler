@@ -120,14 +120,11 @@ data %>%
 
 # Define thresholds -------------------------------------------------------
 #EdU threshold
-edu_threshold = 500
+edu_threshold = 5000
 p <- ggplot(data,aes(x=log10(Intensity_IntegratedIntensity_ImageAfterMathEdU),color=as.character(Metadata_replicate)))+geom_histogram()+
   geom_vline(xintercept=log10(edu_threshold),color="black",linetype="dashed",size=0.3)+
 scale_colour_Publication()+scale_fill_Publication()+theme_Publication(base_size=10)+facet_grid(Metadata_treatment~Metadata_cellline)
 p
-
-
-
 
 # Make plots --------------------------------------------------------------
 
