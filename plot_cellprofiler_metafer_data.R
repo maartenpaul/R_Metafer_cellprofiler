@@ -93,7 +93,58 @@ data %>%
   group_by(Metadata_cellline,Metadata_treatment,Metadata_replicate)%>%
   summarize(n=n())
 
-p <- ggplot(data,aes(x=log10(Intensity_IntegratedIntensity_ImageAfterMathEdU)))+geom_histogram()
-p
-hist(log10(data$Intensity_IntegratedIntensity_ImageAfterMathEdU),xlab = "log10 EdU Intensity",main = "")
+data %>%
+  filter(Intensity_IntegratedIntensity_EdU>3100)%>%
+  group_by(Metadata_cellline)%>%
+  summarise(n=n())
 
+
+data %>%
+  group_by(Metadata_cellline,Metadata_treatment)%>%
+  summarise(n=n())
+
+data %>%
+  filter(Intensity_IntegratedIntensity_EdU>3100)%>%
+  group_by(Metadata_cellline,Metadata_treatment)%>%
+  summarise(n=n())
+
+data %>%
+  group_by(Metadata_cellline,Metadata_treatment,Metadata_replicate)%>%
+  summarise(n=n())
+
+data %>%
+  filter(Intensity_IntegratedIntensity_EdU>3100)%>%
+  group_by(Metadata_cellline,Metadata_treatment,Metadata_replicate)%>%
+  summarise(n=n())
+
+
+# Define thresholds -------------------------------------------------------
+#EdU threshold
+edu_threshold = 500
+p <- ggplot(data,aes(x=log10(Intensity_IntegratedIntensity_ImageAfterMathEdU),color=as.character(Metadata_replicate)))+geom_histogram()+
+  geom_vline(xintercept=log10(edu_threshold),color="black",linetype="dashed",size=0.3)+
+scale_colour_Publication()+scale_fill_Publication()+theme_Publication(base_size=10)+facet_grid(Metadata_treatment~Metadata_cellline)
+p
+
+
+
+
+# Make plots --------------------------------------------------------------
+
+data %>%
+  group_by(Metadata_cellline,Metadata_treatment,Metadata_replicate)%>%
+  summarise(mean_foci=mean(Children_IdentifyPrimaryObjects_RAD51_spot_Count))%>%
+  ggplot(aes(y=mean_foci,x=Metadata_treatment))+geom_quasirandom()+facet_grid(.~Metadata_cellline)+
+  scale_colour_Publication()+scale_fill_Publication()+theme_Publication(base_size=16)
+
+#plot RAD51 foci before after treatment
+means <- data %>%
+  group_by(Metadata_cellline,Metadata_treatment,Metadata_replicate)%>%
+  summarise(mean_foci=mean(Children_IdentifyPrimaryObjects_RAD51_spot_Count))
+
+p <- data %>%
+  filter(Intensity_IntegratedIntensity_ImageAfterMathEdU>800)%>%
+  ggplot()+geom_boxplot(aes(y=Children_IdentifyPrimaryObjects_RAD51_spot_Count,x=Metadata_treatment,fill="red"),outlier.shape = NA,notch=T)+xlab("")+ylab("RAD51 foci")+facet_grid(.~Metadata_cellline)+
+  scale_colour_Publication()+scale_fill_Publication()+theme_Publication(base_size=16)+ theme(legend.position = "none")+geom_quasirandom(data=means,aes(y=mean_foci,x=Metadata_treatment))
+
+p
