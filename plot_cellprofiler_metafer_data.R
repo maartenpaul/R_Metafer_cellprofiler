@@ -6,11 +6,11 @@
 # Specify data sources ----------------------------------------------------
 
 
-folders <- c("/media/OIC-station4/FO/211129_results/csv", "/media/OIC-station4/FO/211129_results/csv/exp2")
+folders <- c("/media/OIC-station4/FO/211129_results/csv")
 conditions <- c("noIR","2Gy") #these should match the file name and defined groups in Cellprofiler
 celllines <- c("WT","pMP101C5","pMP101C10","pMP101C22")
 
-replicate_add <- c(0,2) #per folder add a number to have unique 
+replicate_add <- c(0) #per folder add a number to have unique 
 
 # Initialize dependencies -------------------------------------------------
 
