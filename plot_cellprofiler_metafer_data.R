@@ -5,12 +5,10 @@
 
 # Specify data sources ----------------------------------------------------
 
-#folders <- c("/media/DATA/Maarten/Fatma/211129/data/nuclei")
-folders <- c("/media/DATA/Maarten/OneDrive/Documents/Fatma/211202-U2OS 2nd repeat/data/nuclei")
-#folders <- c("/home/maarten/Documents/Fatma/211221-U2OS 3rd repeat/data/nuclei")
+folders <- c("211202-U2OS 2nd repeat/data/nuclei")
 
 conditions <- c("noIR","2Gy") #these should match the file name and defined groups in Cellprofiler
-celllines <- c("WT","pMP101C5","pMP101C10","pMP101C22")
+celllines <- c("WT","mutant")
 
 replicate_add <- c(0) #per folder add a number to have unique 
 
