@@ -1,0 +1,494 @@
+CellProfiler Pipeline: http://www.cellprofiler.org
+Version:5
+DateRevision:421
+GitHash:
+ModuleCount:29
+HasImagePlaneDetails:False
+
+Images:[module_num:1|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['To begin creating your project, use the Images module to compile a list of files and/or folders that you want to analyze. You can also specify a set of rules to include only the desired files in your selected folders.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    :
+    Filter images?:Images only
+    Select the rule criteria:and (extension does isimage) (directory doesnot containregexp "[\\\\/]\\.")
+
+Metadata:[module_num:2|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:['The Metadata module optionally allows you to extract information describing your images (i.e, metadata) which will be stored along with your measurements. This information can be contained in the file name and/or location, or in an external file.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Extract metadata?:Yes
+    Metadata data type:Text
+    Metadata types:{}
+    Extraction method count:1
+    Metadata extraction method:Extract from file/folder names
+    Metadata source:File name
+    Regular expression to extract from file name:^U2OS4\.(?P<cellline>.*)-(?P<treatment>.*)-(?P<replicate>[0-9]).*\.(?P<ImageNumber>.*)\.(?P<Channel>.*).TIF
+    Regular expression to extract from folder name:(?P<Date>[0-9]{4}_[0-9]{2}_[0-9]{2})$
+    Extract metadata from:All images
+    Select the filtering criteria:and (file does contain "")
+    Metadata file location:Elsewhere...|
+    Match file and image metadata:[]
+    Use case insensitive matching?:No
+    Metadata file name:None
+    Does cached metadata exist?:No
+
+NamesAndTypes:[module_num:3|svn_version:'Unknown'|variable_revision_number:8|show_window:False|notes:['The NamesAndTypes module allows you to assign a meaningful name to each image by which other modules will refer to it.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Assign a name to:Images matching rules
+    Select the image type:Grayscale image
+    Name to assign these images:
+    Match metadata:[{'DNA': 'ImageNumber', 'EdU': 'ImageNumber', 'RAD51': 'ImageNumber'}, {'DNA': None, 'EdU': None, 'RAD51': None}]
+    Image set matching method:Order
+    Set intensity range from:Image metadata
+    Assignments count:3
+    Single images count:0
+    Maximum intensity:255.0
+    Process as 3D?:No
+    Relative pixel spacing in X:1.0
+    Relative pixel spacing in Y:1.0
+    Relative pixel spacing in Z:1.0
+    Select the rule criteria:and (metadata does Channel "B")
+    Name to assign these images:DNA
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image bit-depth
+    Maximum intensity:255.0
+    Select the rule criteria:and (metadata does Channel "Y")
+    Name to assign these images:EdU
+    Name to assign these objects:Cytoplasm
+    Select the image type:Grayscale image
+    Set intensity range from:Image bit-depth
+    Maximum intensity:255.0
+    Select the rule criteria:and (metadata does Channel "G")
+    Name to assign these images:RAD51
+    Name to assign these objects:Speckle
+    Select the image type:Grayscale image
+    Set intensity range from:Image bit-depth
+    Maximum intensity:255.0
+
+Groups:[module_num:4|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['The Groups module optionally allows you to split your list of images into image subsets (groups) which will be processed independently of each other. Examples of groupings include screening batches, microtiter plates, time-lapse movies, etc.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Do you want to group your images?:Yes
+    grouping metadata count:3
+    Metadata category:cellline
+    Metadata category:treatment
+    Metadata category:replicate
+
+IdentifyPrimaryObjects:[module_num:5|svn_version:'Unknown'|variable_revision_number:15|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:DNA
+    Name the primary objects to be identified:IdentifyPrimaryObjects
+    Typical diameter of objects, in pixel units (Min,Max):110,245
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:Shape
+    Method to draw dividing lines between clumped objects:Shape
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:1.3488
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Otsu
+
+IdentifyPrimaryObjects:[module_num:6|svn_version:'Unknown'|variable_revision_number:15|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:DNA
+    Name the primary objects to be identified:Mask
+    Typical diameter of objects, in pixel units (Min,Max):40,500
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:Shape
+    Method to draw dividing lines between clumped objects:Shape
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:1.3488
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.05,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Otsu
+
+MaskImage:[module_num:7|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:EdU
+    Name the output image:MaskEdU
+    Use objects or an image as a mask?:Objects
+    Select object for mask:Mask
+    Select image for mask:None
+    Invert the mask?:Yes
+
+MeasureImageIntensity:[module_num:8|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:MaskEdU
+    Measure the intensity only from areas enclosed by objects?:No
+    Select input object sets:
+    Calculate custom percentiles:No
+    Specify percentiles to measure:10,90
+
+ImageMath:[module_num:9|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:Subtract
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:ImageAfterMathEdU
+    Image or measurement?:Image
+    Select the first image:EdU
+    Multiply the first image by:1.0
+    Measurement:
+    Image or measurement?:Measurement
+    Select the second image:
+    Multiply the second image by:1.0
+    Measurement:Intensity_LowerQuartileIntensity_MaskEdU
+
+MaskImage:[module_num:10|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:RAD51
+    Name the output image:MaskRAD51
+    Use objects or an image as a mask?:Objects
+    Select object for mask:Mask
+    Select image for mask:None
+    Invert the mask?:Yes
+
+MeasureImageIntensity:[module_num:11|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:MaskRAD51
+    Measure the intensity only from areas enclosed by objects?:No
+    Select input object sets:
+    Calculate custom percentiles:No
+    Specify percentiles to measure:10,90
+
+ImageMath:[module_num:12|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:Subtract
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:ImageAfterMathRAD51
+    Image or measurement?:Image
+    Select the first image:RAD51
+    Multiply the first image by:1.0
+    Measurement:
+    Image or measurement?:Measurement
+    Select the second image:
+    Multiply the second image by:1.0
+    Measurement:Intensity_LowerQuartileIntensity_MaskRAD51
+
+MaskImage:[module_num:13|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:DNA
+    Name the output image:MaskDNA
+    Use objects or an image as a mask?:Objects
+    Select object for mask:Mask
+    Select image for mask:None
+    Invert the mask?:Yes
+
+MeasureImageIntensity:[module_num:14|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:MaskDNA
+    Measure the intensity only from areas enclosed by objects?:No
+    Select input object sets:
+    Calculate custom percentiles:No
+    Specify percentiles to measure:10,90
+
+ImageMath:[module_num:15|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:Subtract
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:ImageAfterMathDNA
+    Image or measurement?:Image
+    Select the first image:DNA
+    Multiply the first image by:1.0
+    Measurement:
+    Image or measurement?:Measurement
+    Select the second image:
+    Multiply the second image by:1.0
+    Measurement:Intensity_LowerQuartileIntensity_MaskDNA
+
+MaskImage:[module_num:16|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:ImageAfterMathRAD51
+    Name the output image:MaskedRAD51
+    Use objects or an image as a mask?:Objects
+    Select object for mask:IdentifyPrimaryObjects
+    Select image for mask:None
+    Invert the mask?:No
+
+EnhanceOrSuppressFeatures:[module_num:17|svn_version:'Unknown'|variable_revision_number:7|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:MaskedRAD51
+    Name the output image:EnhanceOrSuppressFeatures_RAD51
+    Select the operation:Enhance
+    Feature size:15
+    Feature type:Speckles
+    Range of hole sizes:1,10
+    Smoothing scale:2.0
+    Shear angle:0.0
+    Decay:0.95
+    Enhancement method:Tubeness
+    Speed and accuracy:Slow
+    Rescale result image:Yes
+
+IdentifyPrimaryObjects:[module_num:18|svn_version:'Unknown'|variable_revision_number:15|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select the input image:EnhanceOrSuppressFeatures_RAD51
+    Name the primary objects to be identified:IdentifyPrimaryObjects_RAD51_spot
+    Typical diameter of objects, in pixel units (Min,Max):2,13
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:Shape
+    Method to draw dividing lines between clumped objects:Shape
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:No
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:1.3488
+    Threshold correction factor:3
+    Lower and upper bounds on threshold:0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Otsu
+
+MeasureObjectSizeShape:[module_num:19|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select object sets to measure:IdentifyPrimaryObjects
+    Calculate the Zernike features?:No
+    Calculate the advanced features?:No
+
+MeasureObjectIntensity:[module_num:20|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:DNA, EdU, ImageAfterMathDNA, ImageAfterMathEdU, ImageAfterMathRAD51, RAD51
+    Select objects to measure:IdentifyPrimaryObjects
+
+RelateObjects:[module_num:21|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:IdentifyPrimaryObjects
+    Child objects:IdentifyPrimaryObjects_RAD51_spot
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:Yes
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:RelateObjects
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+
+MeasureImageQuality:[module_num:22|svn_version:'Unknown'|variable_revision_number:6|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Calculate metrics for which images?:Select...
+    Image count:1
+    Scale count:1
+    Threshold count:1
+    Select the images to measure:DNA, RAD51
+    Include the image rescaling value?:Yes
+    Calculate blur metrics?:Yes
+    Spatial scale for blur measurements:20
+    Calculate saturation metrics?:Yes
+    Calculate intensity metrics?:Yes
+    Calculate thresholds?:Yes
+    Use all thresholding methods?:No
+    Select a thresholding method:Otsu
+    Typical fraction of the image covered by objects:0.1
+    Two-class or three-class thresholding?:Two classes
+    Minimize the weighted variance or the entropy?:Weighted variance
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+
+ExportToSpreadsheet:[module_num:23|svn_version:'Unknown'|variable_revision_number:13|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the column delimiter:Tab
+    Add image metadata columns to your object data file?:Yes
+    Add image file and folder names to your object data file?:Yes
+    Select the measurements to export:Yes
+    Calculate the per-image mean values for object measurements?:No
+    Calculate the per-image median values for object measurements?:No
+    Calculate the per-image standard deviation values for object measurements?:No
+    Output file location:Default Input Folder sub-folder|\g<cellline>
+    Create a GenePattern GCT file?:No
+    Select source of sample row name:Metadata
+    Select the image to use as the identifier:None
+    Select the metadata to use as the identifier:None
+    Export all measurement types?:No
+    Press button to select measurements:Image|ModuleError_07MaskImage,Image|ModuleError_13MaskImage,Image|ModuleError_10MaskImage,Image|ModuleError_14MeasureImageIntensity,Image|ModuleError_11MeasureImageIntensity,Image|ModuleError_12ImageMath,Image|ModuleError_19MeasureObjectSizeShape,Image|ModuleError_05IdentifyPrimaryObjects,Image|ModuleError_09ImageMath,Image|ModuleError_15ImageMath,Image|ModuleError_03NamesAndTypes,Image|ModuleError_18IdentifyPrimaryObjects,Image|ModuleError_21RelateObjects,Image|ModuleError_16MaskImage,Image|ModuleError_08MeasureImageIntensity,Image|ModuleError_04Groups,Image|ModuleError_02Metadata,Image|ModuleError_17EnhanceOrSuppressFeatures,Image|ModuleError_06IdentifyPrimaryObjects,Image|ModuleError_01Images,Image|ModuleError_20MeasureObjectIntensity,Image|ModuleError_22MeasureImageQuality,Image|Intensity_TotalIntensity_MaskEdU,Image|Intensity_TotalIntensity_MaskRAD51,Image|Intensity_TotalIntensity_MaskDNA,Image|Intensity_MADIntensity_MaskRAD51,Image|Intensity_MADIntensity_MaskDNA,Image|Intensity_MADIntensity_MaskEdU,Image|Intensity_TotalArea_MaskRAD51,Image|Intensity_TotalArea_MaskDNA,Image|Intensity_TotalArea_MaskEdU,Image|Intensity_LowerQuartileIntensity_MaskEdU,Image|Intensity_LowerQuartileIntensity_MaskRAD51,Image|Intensity_LowerQuartileIntensity_MaskDNA,Image|Intensity_MaxIntensity_MaskDNA,Image|Intensity_MaxIntensity_MaskRAD51,Image|Intensity_MaxIntensity_MaskEdU,Image|Intensity_MeanIntensity_MaskEdU,Image|Intensity_MeanIntensity_MaskDNA,Image|Intensity_MeanIntensity_MaskRAD51,Image|Intensity_MedianIntensity_MaskEdU,Image|Intensity_MedianIntensity_MaskRAD51,Image|Intensity_MedianIntensity_MaskDNA,Image|Intensity_UpperQuartileIntensity_MaskRAD51,Image|Intensity_UpperQuartileIntensity_MaskEdU,Image|Intensity_UpperQuartileIntensity_MaskDNA,Image|Intensity_PercentMaximal_MaskRAD51,Image|Intensity_PercentMaximal_MaskEdU,Image|Intensity_PercentMaximal_MaskDNA,Image|Intensity_MinIntensity_MaskDNA,Image|Intensity_MinIntensity_MaskEdU,Image|Intensity_MinIntensity_MaskRAD51,Image|Intensity_StdIntensity_MaskDNA,Image|Intensity_StdIntensity_MaskRAD51,Image|Intensity_StdIntensity_MaskEdU,Image|FileName_RAD51,Image|FileName_DNA,Image|FileName_EdU,Image|Width_DNA,Image|Width_EdU,Image|Width_RAD51,Image|Frame_DNA,Image|Frame_RAD51,Image|Frame_EdU,Image|ImageQuality_MeanIntensity_DNA,Image|ImageQuality_MeanIntensity_RAD51,Image|ImageQuality_MinIntensity_RAD51,Image|ImageQuality_MinIntensity_DNA,Image|ImageQuality_TotalIntensity_RAD51,Image|ImageQuality_TotalIntensity_DNA,Image|ImageQuality_Scaling_DNA,Image|ImageQuality_Scaling_RAD51,Image|ImageQuality_Correlation_RAD51_20,Image|ImageQuality_Correlation_DNA_20,Image|ImageQuality_TotalArea_RAD51,Image|ImageQuality_TotalArea_DNA,Image|ImageQuality_StdIntensity_RAD51,Image|ImageQuality_StdIntensity_DNA,Image|ImageQuality_ThresholdOtsu_DNA_2W,Image|ImageQuality_ThresholdOtsu_RAD51_2W,Image|ImageQuality_FocusScore_DNA,Image|ImageQuality_FocusScore_RAD51,Image|ImageQuality_PowerLogLogSlope_DNA,Image|ImageQuality_PowerLogLogSlope_RAD51,Image|ImageQuality_PercentMaximal_RAD51,Image|ImageQuality_PercentMaximal_DNA,Image|ImageQuality_LocalFocusScore_DNA_20,Image|ImageQuality_LocalFocusScore_RAD51_20,Image|ImageQuality_PercentMinimal_RAD51,Image|ImageQuality_PercentMinimal_DNA,Image|ImageQuality_MedianIntensity_RAD51,Image|ImageQuality_MedianIntensity_DNA,Image|ImageQuality_MADIntensity_RAD51,Image|ImageQuality_MADIntensity_DNA,Image|ImageQuality_MaxIntensity_DNA,Image|ImageQuality_MaxIntensity_RAD51,Image|Scaling_DNA,Image|Scaling_EdU,Image|Scaling_RAD51,Image|ExecutionTime_09ImageMath,Image|ExecutionTime_01Images,Image|ExecutionTime_21RelateObjects,Image|ExecutionTime_12ImageMath,Image|ExecutionTime_22MeasureImageQuality,Image|ExecutionTime_20MeasureObjectIntensity,Image|ExecutionTime_04Groups,Image|ExecutionTime_08MeasureImageIntensity,Image|ExecutionTime_13MaskImage,Image|ExecutionTime_19MeasureObjectSizeShape,Image|ExecutionTime_11MeasureImageIntensity,Image|ExecutionTime_14MeasureImageIntensity,Image|ExecutionTime_06IdentifyPrimaryObjects,Image|ExecutionTime_18IdentifyPrimaryObjects,Image|ExecutionTime_17EnhanceOrSuppressFeatures,Image|ExecutionTime_02Metadata,Image|ExecutionTime_16MaskImage,Image|ExecutionTime_15ImageMath,Image|ExecutionTime_03NamesAndTypes,Image|ExecutionTime_10MaskImage,Image|ExecutionTime_07MaskImage,Image|ExecutionTime_05IdentifyPrimaryObjects,Image|Series_DNA,Image|Series_EdU,Image|Series_RAD51,Image|URL_DNA,Image|URL_RAD51,Image|URL_EdU,Image|Threshold_WeightedVariance_IdentifyPrimaryObjects,Image|Threshold_WeightedVariance_IdentifyPrimaryObjects_RAD51_spot,Image|Threshold_WeightedVariance_Mask,Image|Threshold_OrigThreshold_IdentifyPrimaryObjects,Image|Threshold_OrigThreshold_IdentifyPrimaryObjects_RAD51_spot,Image|Threshold_OrigThreshold_Mask,Image|Threshold_FinalThreshold_IdentifyPrimaryObjects,Image|Threshold_FinalThreshold_IdentifyPrimaryObjects_RAD51_spot,Image|Threshold_FinalThreshold_Mask,Image|Threshold_SumOfEntropies_IdentifyPrimaryObjects,Image|Threshold_SumOfEntropies_IdentifyPrimaryObjects_RAD51_spot,Image|Threshold_SumOfEntropies_Mask,Image|MD5Digest_DNA,Image|MD5Digest_EdU,Image|MD5Digest_RAD51,Image|Metadata_Series,Image|Metadata_Channel,Image|Metadata_ImageNumber,Image|Metadata_treatment,Image|Metadata_Frame,Image|Metadata_replicate,Image|Metadata_FileLocation,Image|Metadata_cellline,Image|Count_IdentifyPrimaryObjects,Image|Count_IdentifyPrimaryObjects_RAD51_spot,Image|Count_RelateObjects,Image|Count_Mask,Image|PathName_DNA,Image|PathName_EdU,Image|PathName_RAD51,Image|Group_Index,Image|Group_Number,Image|Height_EdU,Image|Height_DNA,Image|Height_RAD51,IdentifyPrimaryObjects|Location_MaxIntensity_X_DNA,IdentifyPrimaryObjects|Location_MaxIntensity_X_ImageAfterMathRAD51,IdentifyPrimaryObjects|Location_MaxIntensity_X_RAD51,IdentifyPrimaryObjects|Location_MaxIntensity_X_EdU,IdentifyPrimaryObjects|Location_MaxIntensity_X_ImageAfterMathEdU,IdentifyPrimaryObjects|Location_MaxIntensity_X_ImageAfterMathDNA,IdentifyPrimaryObjects|Location_MaxIntensity_Z_RAD51,IdentifyPrimaryObjects|Location_MaxIntensity_Z_EdU,IdentifyPrimaryObjects|Location_MaxIntensity_Z_ImageAfterMathDNA,IdentifyPrimaryObjects|Location_MaxIntensity_Z_DNA,IdentifyPrimaryObjects|Location_MaxIntensity_Z_ImageAfterMathEdU,IdentifyPrimaryObjects|Location_MaxIntensity_Z_ImageAfterMathRAD51,IdentifyPrimaryObjects|Location_MaxIntensity_Y_ImageAfterMathEdU,IdentifyPrimaryObjects|Location_MaxIntensity_Y_EdU,IdentifyPrimaryObjects|Location_MaxIntensity_Y_DNA,IdentifyPrimaryObjects|Location_MaxIntensity_Y_RAD51,IdentifyPrimaryObjects|Location_MaxIntensity_Y_ImageAfterMathRAD51,IdentifyPrimaryObjects|Location_MaxIntensity_Y_ImageAfterMathDNA,IdentifyPrimaryObjects|Location_CenterMassIntensity_X_ImageAfterMathEdU,IdentifyPrimaryObjects|Location_CenterMassIntensity_X_ImageAfterMathRAD51,IdentifyPrimaryObjects|Location_CenterMassIntensity_X_EdU,IdentifyPrimaryObjects|Location_CenterMassIntensity_X_RAD51,IdentifyPrimaryObjects|Location_CenterMassIntensity_X_DNA,IdentifyPrimaryObjects|Location_CenterMassIntensity_X_ImageAfterMathDNA,IdentifyPrimaryObjects|Location_CenterMassIntensity_Y_ImageAfterMathEdU,IdentifyPrimaryObjects|Location_CenterMassIntensity_Y_DNA,IdentifyPrimaryObjects|Location_CenterMassIntensity_Y_ImageAfterMathDNA,IdentifyPrimaryObjects|Location_CenterMassIntensity_Y_RAD51,IdentifyPrimaryObjects|Location_CenterMassIntensity_Y_EdU,IdentifyPrimaryObjects|Location_CenterMassIntensity_Y_ImageAfterMathRAD51,IdentifyPrimaryObjects|Location_CenterMassIntensity_Z_ImageAfterMathEdU,IdentifyPrimaryObjects|Location_CenterMassIntensity_Z_EdU,IdentifyPrimaryObjects|Location_CenterMassIntensity_Z_RAD51,IdentifyPrimaryObjects|Location_CenterMassIntensity_Z_ImageAfterMathRAD51,IdentifyPrimaryObjects|Location_CenterMassIntensity_Z_DNA,IdentifyPrimaryObjects|Location_CenterMassIntensity_Z_ImageAfterMathDNA,IdentifyPrimaryObjects|Location_Center_Z,IdentifyPrimaryObjects|Location_Center_X,IdentifyPrimaryObjects|Location_Center_Y,IdentifyPrimaryObjects|Intensity_MADIntensity_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_MADIntensity_DNA,IdentifyPrimaryObjects|Intensity_MADIntensity_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_MADIntensity_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_MADIntensity_RAD51,IdentifyPrimaryObjects|Intensity_MADIntensity_EdU,IdentifyPrimaryObjects|Intensity_UpperQuartileIntensity_RAD51,IdentifyPrimaryObjects|Intensity_UpperQuartileIntensity_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_UpperQuartileIntensity_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_UpperQuartileIntensity_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_UpperQuartileIntensity_EdU,IdentifyPrimaryObjects|Intensity_UpperQuartileIntensity_DNA,IdentifyPrimaryObjects|Intensity_IntegratedIntensity_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_IntegratedIntensity_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_IntegratedIntensity_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_IntegratedIntensity_RAD51,IdentifyPrimaryObjects|Intensity_IntegratedIntensity_DNA,IdentifyPrimaryObjects|Intensity_IntegratedIntensity_EdU,IdentifyPrimaryObjects|Intensity_MinIntensity_RAD51,IdentifyPrimaryObjects|Intensity_MinIntensity_EdU,IdentifyPrimaryObjects|Intensity_MinIntensity_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_MinIntensity_DNA,IdentifyPrimaryObjects|Intensity_MinIntensity_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_MinIntensity_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_MassDisplacement_EdU,IdentifyPrimaryObjects|Intensity_MassDisplacement_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_MassDisplacement_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_MassDisplacement_DNA,IdentifyPrimaryObjects|Intensity_MassDisplacement_RAD51,IdentifyPrimaryObjects|Intensity_MassDisplacement_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_MaxIntensity_DNA,IdentifyPrimaryObjects|Intensity_MaxIntensity_RAD51,IdentifyPrimaryObjects|Intensity_MaxIntensity_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_MaxIntensity_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_MaxIntensity_EdU,IdentifyPrimaryObjects|Intensity_MaxIntensity_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_IntegratedIntensityEdge_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_IntegratedIntensityEdge_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_IntegratedIntensityEdge_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_IntegratedIntensityEdge_EdU,IdentifyPrimaryObjects|Intensity_IntegratedIntensityEdge_DNA,IdentifyPrimaryObjects|Intensity_IntegratedIntensityEdge_RAD51,IdentifyPrimaryObjects|Intensity_MeanIntensity_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_MeanIntensity_RAD51,IdentifyPrimaryObjects|Intensity_MeanIntensity_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_MeanIntensity_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_MeanIntensity_EdU,IdentifyPrimaryObjects|Intensity_MeanIntensity_DNA,IdentifyPrimaryObjects|Intensity_MinIntensityEdge_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_MinIntensityEdge_RAD51,IdentifyPrimaryObjects|Intensity_MinIntensityEdge_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_MinIntensityEdge_DNA,IdentifyPrimaryObjects|Intensity_MinIntensityEdge_EdU,IdentifyPrimaryObjects|Intensity_MinIntensityEdge_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_MaxIntensityEdge_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_MaxIntensityEdge_RAD51,IdentifyPrimaryObjects|Intensity_MaxIntensityEdge_DNA,IdentifyPrimaryObjects|Intensity_MaxIntensityEdge_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_MaxIntensityEdge_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_MaxIntensityEdge_EdU,IdentifyPrimaryObjects|Intensity_StdIntensityEdge_DNA,IdentifyPrimaryObjects|Intensity_StdIntensityEdge_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_StdIntensityEdge_EdU,IdentifyPrimaryObjects|Intensity_StdIntensityEdge_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_StdIntensityEdge_RAD51,IdentifyPrimaryObjects|Intensity_StdIntensityEdge_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_MeanIntensityEdge_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_MeanIntensityEdge_RAD51,IdentifyPrimaryObjects|Intensity_MeanIntensityEdge_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_MeanIntensityEdge_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_MeanIntensityEdge_EdU,IdentifyPrimaryObjects|Intensity_MeanIntensityEdge_DNA,IdentifyPrimaryObjects|Intensity_LowerQuartileIntensity_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_LowerQuartileIntensity_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_LowerQuartileIntensity_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_LowerQuartileIntensity_EdU,IdentifyPrimaryObjects|Intensity_LowerQuartileIntensity_RAD51,IdentifyPrimaryObjects|Intensity_LowerQuartileIntensity_DNA,IdentifyPrimaryObjects|Intensity_MedianIntensity_RAD51,IdentifyPrimaryObjects|Intensity_MedianIntensity_EdU,IdentifyPrimaryObjects|Intensity_MedianIntensity_DNA,IdentifyPrimaryObjects|Intensity_MedianIntensity_ImageAfterMathDNA,IdentifyPrimaryObjects|Intensity_MedianIntensity_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_MedianIntensity_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_StdIntensity_ImageAfterMathEdU,IdentifyPrimaryObjects|Intensity_StdIntensity_ImageAfterMathRAD51,IdentifyPrimaryObjects|Intensity_StdIntensity_EdU,IdentifyPrimaryObjects|Intensity_StdIntensity_RAD51,IdentifyPrimaryObjects|Intensity_StdIntensity_DNA,IdentifyPrimaryObjects|Intensity_StdIntensity_ImageAfterMathDNA,IdentifyPrimaryObjects|AreaShape_BoundingBoxMinimum_Y,IdentifyPrimaryObjects|AreaShape_BoundingBoxMinimum_X,IdentifyPrimaryObjects|AreaShape_EquivalentDiameter,IdentifyPrimaryObjects|AreaShape_MinFeretDiameter,IdentifyPrimaryObjects|AreaShape_MinorAxisLength,IdentifyPrimaryObjects|AreaShape_BoundingBoxMaximum_X,IdentifyPrimaryObjects|AreaShape_BoundingBoxMaximum_Y,IdentifyPrimaryObjects|AreaShape_MeanRadius,IdentifyPrimaryObjects|AreaShape_MedianRadius,IdentifyPrimaryObjects|AreaShape_EulerNumber,IdentifyPrimaryObjects|AreaShape_ConvexArea,IdentifyPrimaryObjects|AreaShape_MaximumRadius,IdentifyPrimaryObjects|AreaShape_FormFactor,IdentifyPrimaryObjects|AreaShape_Center_X,IdentifyPrimaryObjects|AreaShape_Center_Y,IdentifyPrimaryObjects|AreaShape_Extent,IdentifyPrimaryObjects|AreaShape_Orientation,IdentifyPrimaryObjects|AreaShape_MaxFeretDiameter,IdentifyPrimaryObjects|AreaShape_BoundingBoxArea,IdentifyPrimaryObjects|AreaShape_Eccentricity,IdentifyPrimaryObjects|AreaShape_Perimeter,IdentifyPrimaryObjects|AreaShape_Compactness,IdentifyPrimaryObjects|AreaShape_Area,IdentifyPrimaryObjects|AreaShape_Solidity,IdentifyPrimaryObjects|AreaShape_MajorAxisLength,IdentifyPrimaryObjects|Mean_IdentifyPrimaryObjects_RAD51_spot_Location_Center_Y,IdentifyPrimaryObjects|Mean_IdentifyPrimaryObjects_RAD51_spot_Location_Center_Z,IdentifyPrimaryObjects|Mean_IdentifyPrimaryObjects_RAD51_spot_Location_Center_X,IdentifyPrimaryObjects|Mean_IdentifyPrimaryObjects_RAD51_spot_Number_Object_Number,IdentifyPrimaryObjects|Number_Object_Number,IdentifyPrimaryObjects|Children_IdentifyPrimaryObjects_RAD51_spot_Count
+    Representation of Nan/Inf:NaN
+    Add a prefix to file names?:Yes
+    Filename prefix:220303
+    Overwrite existing files without warning?:No
+    Data to export:IdentifyPrimaryObjects
+    Combine these object measurements with those of the previous object?:No
+    File name:\g<cellline>_\g<treatment>_\g<replicate>.csv
+    Use the object name for the file name?:No
+    Data to export:Image
+    Combine these object measurements with those of the previous object?:No
+    File name:image_\g<cellline>_\g<treatment>_\g<replicate>.csv
+    Use the object name for the file name?:No
+
+OverlayOutlines:[module_num:24|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Display outlines on a blank image?:No
+    Select image on which to display outlines:RAD51
+    Name the output image:OrigOverlay
+    Outline display mode:Color
+    Select method to determine brightness of outlines:Max of image
+    How to outline:Inner
+    Select outline color:Red
+    Select objects to display:IdentifyPrimaryObjects
+    Select outline color:Green
+    Select objects to display:IdentifyPrimaryObjects_RAD51_spot
+
+DisplayDataOnImage:[module_num:25|svn_version:'Unknown'|variable_revision_number:6|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Display object or image measurements?:Object
+    Select the input objects:IdentifyPrimaryObjects
+    Measurement to display:Intensity_IntegratedIntensity_EdU
+    Select the image on which to display the measurements:OrigOverlay
+    Text color:red
+    Name the output image that has the measurements displayed:DisplayImage
+    Font size (points):10
+    Number of decimals:2
+    Image elements to save:Image
+    Annotation offset (in pixels):0
+    Display mode:Text
+    Color map:Default
+    Display background image?:Yes
+    Color map scale:Use this image's measurement range
+    Color map range:0.0,1.0
+
+DisplayDataOnImage:[module_num:26|svn_version:'Unknown'|variable_revision_number:6|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Display object or image measurements?:Object
+    Select the input objects:IdentifyPrimaryObjects
+    Measurement to display:Intensity_IntegratedIntensity_ImageAfterMathEdU
+    Select the image on which to display the measurements:OrigOverlay
+    Text color:red
+    Name the output image that has the measurements displayed:DisplayImage2
+    Font size (points):10
+    Number of decimals:2
+    Image elements to save:Image
+    Annotation offset (in pixels):0
+    Display mode:Text
+    Color map:Default
+    Display background image?:Yes
+    Color map scale:Use this image's measurement range
+    Color map range:0.0,1.0
+
+SaveImages:[module_num:27|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:DisplayImage
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:RAD51
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:No
+    Text to append to the image name:
+    Saved file format:tiff
+    Output file location:Same folder as image|
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:No
+
+SaveImages:[module_num:28|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:DisplayImage2
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:RAD51
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:EdUafterMath
+    Saved file format:tiff
+    Output file location:Same folder as image|
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:No
+
+CreateBatchFiles:[module_num:29|svn_version:'Unknown'|variable_revision_number:8|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Store batch files in default output folder?:No
+    Output folder path:/home/maarten/batch
+    Are the cluster computers running Windows?:No
+    Hidden- in batch mode:No
+    Hidden- in distributed mode:No
+    Hidden- default input folder at time of save:/home/maarten
+    Hidden- revision number:0
+    Hidden- from old matlab:No
+    Local root path:/home/maarten/batch
+    Cluster root path:/home/maarten/batch
