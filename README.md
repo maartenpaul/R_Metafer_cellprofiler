@@ -1,5 +1,6 @@
 # R Metafer cellprofiler
 Scripts for quantification of DSB repair foci in fixed samples acquired with Metafer WideField microscope
+This repository contains Cell profiler pipelines for analysis and a R script to analyze and visualize the data
 
 ## Data format
 For automatic batch processing in Cell Profiler, files should be properly named.
