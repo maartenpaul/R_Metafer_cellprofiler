@@ -22,7 +22,7 @@ You can use "Start Test Mode" to test if the pipeline is working good enough for
 
 Depending on the output you can change the thresholds or other parameters to properly segment the nuclei and to detect the foci. It is recommended to check the output for a few images from different conditions if the results are satisfactory.
 
-When running the entire pipeline images will we exported that 
+When running the entire pipeline images will we exported that show the nuclear segmentation and foci detection.
 
 
 ## Batch analysis
