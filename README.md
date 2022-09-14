@@ -4,7 +4,8 @@ Scripts for quantification of DSB repair foci in fixed samples acquired with Met
 ## Data format
 For automatic batch processing in Cell Profiler, files should be properly named.
 The current file name format:
-(?P<cellline>.*)-(?P<treatment>.*)-(?P<replicate>[0-9]).*\.(?P<ImageNumber>.*)\.(?P<Channel>.*).TIF
+
+"Cell line-treatment-replicate[0-9].ImageNumber.Channel.TIF"
 
 ## Batch analysis
 When analyzing large data sets it happens frequently that Cell Profiler runs out of memory. I therefor found a way to split up the data and run in parallel. This work for Linux. A solution for Windows needs to be sorted out.
